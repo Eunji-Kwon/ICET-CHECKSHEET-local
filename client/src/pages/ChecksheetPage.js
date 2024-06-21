@@ -18,7 +18,7 @@ import io from 'socket.io-client';
 const ChecksheetPage = () => {
     const [data, setData] = useState([]);
     const [today, setToday] = useState('');
-
+    const [openDialog, setOpenDialog] = useState(false);
 
 	const socket = useMemo( () => io('http://35.183.100.104'),[]);
 
@@ -65,6 +65,8 @@ const ChecksheetPage = () => {
             socket.off("checksheetCreated");
         };
     }, [socket]);
+
+
 
     useEffect(() => {
         if (!socket) {
@@ -179,6 +181,43 @@ const handleCreateChecksheet = async () => {
     } catch (err) {
         console.error(err);
         alert(`Error: ${err.message}`);
+    }
+};
+
+
+const handleOpenDialog = () => {
+    setOpenDialog(true);
+};
+
+const handleCloseDialog = () => {
+    setOpenDialog(false);
+};
+
+const handleAddData = async (event) => {
+    event.preventDefault();
+    const formData = new FormData(event.currentTarget);
+    const data = {
+        day: formData.get('day'),
+        lab: formData.get('lab'),
+        startTime: formData.get('startTime'),
+        checkedBy: formData.get('checkedBy'),
+        actualTime: formData.get('actualTime')
+    };
+    try {
+        const response = await fetch('/api/checksheet', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(data)
+        });
+        if (!response.ok) {
+            throw new Error('Failed to create checksheet');
+        }
+        alert('New checksheet added');
+        setOpenDialog(false);
+        socket.emit('checksheetCreated');
+    } catch (error) {
+        console.error(error);
+        alert('Failed to add checksheet');
     }
 };
 
@@ -358,7 +397,7 @@ const handleCreateChecksheet = async () => {
                     Start a Checksheet
                 </Button>
 
-                <Button>Add Data(manually)</Button>
+                <Button>Add Data (manually)</Button>
 
             </Box>
 
