@@ -397,8 +397,7 @@ const handleAddData = async (event) => {
                     Start a Checksheet
                 </Button>
 
-                {/* <Button>Add Data (manually)</Button> */}
-
+                <Button onClick={handleOpenDialog}>Add Data (manually)</Button>
             </Box>
 
         ),
@@ -435,7 +434,7 @@ const handleAddData = async (event) => {
                 <MaterialReactTable table={table} />
 
 
-                <Button onClick={handleOpenDialog}>Add Data (manually)</Button>
+              
             <Dialog open={openDialog} onClose={handleCloseDialog}>
                 <DialogTitle>Add New Checksheet Data</DialogTitle>
                 <DialogContent>
@@ -463,33 +462,12 @@ const handleAddData = async (event) => {
                         <TextField
                             margin="dense"
                             id="startTime"
-                            label="Start Time"
+                            label="Check Time"
                             type="time"
                             fullWidth
                             variant="outlined"
                             name="startTime"
                             required
-                            InputLabelProps={{
-                                shrink: true,
-                            }}
-                        />
-                        <TextField
-                            margin="dense"
-                            id="checkedBy"
-                            label="Checked By"
-                            type="text"
-                            fullWidth
-                            variant="outlined"
-                            name="checkedBy"
-                        />
-                        <TextField
-                            margin="dense"
-                            id="actualTime"
-                            label="Actual Time"
-                            type="time"
-                            fullWidth
-                            variant="outlined"
-                            name="actualTime"
                             InputLabelProps={{
                                 shrink: true,
                             }}
