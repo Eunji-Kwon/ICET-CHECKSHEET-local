@@ -8,7 +8,7 @@ import {
 import {
     IconButton,
     Box,
-    Typography,
+    Typography, Dialog, DialogActions, DialogContent, DialogTitle, TextField
 } from '@mui/material';
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 import moment from 'moment';
@@ -397,7 +397,7 @@ const handleAddData = async (event) => {
                     Start a Checksheet
                 </Button>
 
-                <Button>Add Data (manually)</Button>
+                {/* <Button>Add Data (manually)</Button> */}
 
             </Box>
 
@@ -433,6 +433,74 @@ const handleAddData = async (event) => {
                 </Typography>
                 
                 <MaterialReactTable table={table} />
+
+
+                <Button onClick={handleOpenDialog}>Add Data (manually)</Button>
+            <Dialog open={openDialog} onClose={handleCloseDialog}>
+                <DialogTitle>Add New Checksheet Data</DialogTitle>
+                <DialogContent>
+                    <form onSubmit={handleAddData}>
+                        <TextField
+                            margin="dense"
+                            id="day"
+                            label="Day"
+                            type="text"
+                            fullWidth
+                            variant="outlined"
+                            name="day"
+                            required
+                        />
+                        <TextField
+                            margin="dense"
+                            id="lab"
+                            label="Lab"
+                            type="text"
+                            fullWidth
+                            variant="outlined"
+                            name="lab"
+                            required
+                        />
+                        <TextField
+                            margin="dense"
+                            id="startTime"
+                            label="Start Time"
+                            type="time"
+                            fullWidth
+                            variant="outlined"
+                            name="startTime"
+                            required
+                            InputLabelProps={{
+                                shrink: true,
+                            }}
+                        />
+                        <TextField
+                            margin="dense"
+                            id="checkedBy"
+                            label="Checked By"
+                            type="text"
+                            fullWidth
+                            variant="outlined"
+                            name="checkedBy"
+                        />
+                        <TextField
+                            margin="dense"
+                            id="actualTime"
+                            label="Actual Time"
+                            type="time"
+                            fullWidth
+                            variant="outlined"
+                            name="actualTime"
+                            InputLabelProps={{
+                                shrink: true,
+                            }}
+                        />
+                        <DialogActions>
+                            <Button onClick={handleCloseDialog}>Cancel</Button>
+                            <Button type="submit" color="primary">Add</Button>
+                        </DialogActions>
+                    </form>
+                </DialogContent>
+            </Dialog>
             </Box>
         </>
     );
