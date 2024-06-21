@@ -439,6 +439,11 @@ const handleAddData = async (event) => {
                 <DialogTitle>Add New Checksheet Data</DialogTitle>
                 <DialogContent>
                     <form onSubmit={handleAddData}>
+                    <Typography variant="body2" gutterBottom>
+                    If there is an 'Open Lab' or 'Reserved Classroom',<br></br>
+                    you can manually add lab schedule information.<br></br>
+
+                 </Typography>
                         <TextField
                             margin="dense"
                             id="day"
